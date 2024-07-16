@@ -1,9 +1,10 @@
-package com.kelsonthony.hexagonalarchitecture.hexagonalarchitectureexample.application.service;
+package com.kelsonthony.hexagonalarchitecture.hexagonalarchitectureexample.application.service.impl;
 
 import com.kelsonthony.hexagonalarchitecture.hexagonalarchitectureexample.application.exception.EmailAlreadyExistsException;
 import com.kelsonthony.hexagonalarchitecture.hexagonalarchitectureexample.domain.model.User;
 import com.kelsonthony.hexagonalarchitecture.hexagonalarchitectureexample.domain.port.in.UserService;
 import com.kelsonthony.hexagonalarchitecture.hexagonalarchitectureexample.domain.port.out.UserRepository;
+import com.kelsonthony.hexagonalarchitecture.hexagonalarchitectureexample.dtos.UserDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +24,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public User createUser(User user) {
+    public User createUser(UserDto user) {
         // Verifica se o email já existe
         if (userRepository.existsByEmail(user.getEmail())) {
             throw new EmailAlreadyExistsException(user.getEmail());

@@ -3,6 +3,7 @@ package com.kelsonthony.hexagonalarchitecture.hexagonalarchitectureexample.infra
 import com.kelsonthony.hexagonalarchitecture.hexagonalarchitectureexample.domain.model.User;
 import com.kelsonthony.hexagonalarchitecture.hexagonalarchitectureexample.domain.port.out.UserRepository;
 
+import com.kelsonthony.hexagonalarchitecture.hexagonalarchitectureexample.dtos.UserDto;
 import org.springframework.stereotype.Component;
 
 
@@ -21,7 +22,10 @@ public class JpaUserRepository implements UserRepository {
     }
 
     @Override
-    public User save(User user) {
+    public User save(UserDto userDto) {
+        User user = new User();
+        user.setName(userDto.getName());
+        user.setEmail(userDto.getEmail());
         return springDataJpaUserRepository.save(user);
     }
 

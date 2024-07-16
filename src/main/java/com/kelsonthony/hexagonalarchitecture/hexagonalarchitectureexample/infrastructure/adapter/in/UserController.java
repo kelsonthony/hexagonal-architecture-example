@@ -2,6 +2,7 @@ package com.kelsonthony.hexagonalarchitecture.hexagonalarchitectureexample.infra
 
 import com.kelsonthony.hexagonalarchitecture.hexagonalarchitectureexample.domain.model.User;
 import com.kelsonthony.hexagonalarchitecture.hexagonalarchitectureexample.domain.port.in.UserService;
+import com.kelsonthony.hexagonalarchitecture.hexagonalarchitectureexample.dtos.UserDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,9 +25,14 @@ public class UserController {
         return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User createdUser = userService.createUser(user);
-        return ResponseEntity.ok(createdUser);
-    }
+//    @PostMapping
+//    public ResponseEntity<User> createUser(@RequestBody User user) {
+//        User createdUser = userService.createUser(user);
+//        return ResponseEntity.ok(createdUser);
+//    }
+@PostMapping
+public ResponseEntity<User> createUser(@RequestBody UserDto user) {
+    User createdUser = userService.createUser(user);
+    return ResponseEntity.ok(createdUser);
+}
 }
