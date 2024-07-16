@@ -22,7 +22,40 @@ Hexagonal Architecture divides the application into inside and outside parts. Th
 - **Adapters**: Implementations of the ports that translate between the external world and the application's core logic.
     - **Primary/Driving Adapters**: Interact with the application through inbound ports (e.g., REST controllers).
     - **Secondary/Driven Adapters**: Implement outbound ports to interact with external agents like databases (e.g., `JpaUserRepository`).
+# Enhancements with DTOs, Pagination, HATEOAS, and ModelMapper
 
+This project has been enhanced to include several advanced features that improve the API's functionality and user experience. These enhancements include the use of Data Transfer Objects (DTOs), pagination, Hypermedia as the Engine of Application State (HATEOAS), and the ModelMapper library.
+
+## Using DTOs
+
+DTOs (Data Transfer Objects) are implemented to encapsulate the data and separate the presentation layer from the business logic. This approach ensures that the internal structure of the application remains secure and the data exposed to the client is controlled and potentially customized for different scenarios.
+
+## Pagination
+
+To improve the performance and usability of the API, pagination has been added to the user listing endpoints. This allows clients to request a specific subset of data, reducing the amount of data transferred over the network and improving response times.
+
+## HATEOAS
+
+HATEOAS (Hypermedia as the Engine of Application State) is incorporated to make the API more discoverable and self-descriptive. It adds hyperlinks to the API responses, guiding the clients through the available actions without prior knowledge of the API structure.
+
+## ModelMapper
+
+The ModelMapper library is utilized to simplify the conversion between domain models and DTOs. This reduces the amount of boilerplate code required for object mapping and minimizes the risk of mapping errors, making the codebase cleaner and more maintainable.
+
+## Updated Project Structure
+
+The project structure has been updated to accommodate these enhancements:
+
+- `src/main/java/com/kelsonthony/hexagonalarchitecture/hexagonalarchitectureexample/dtos`: Contains the DTOs used for data transfer between the API and clients.
+- `src/main/java/com/kelsonthony/hexagonalarchitecture/hexagonalarchitectureexample/infrastructure/adapter/in`: Updated to include controllers that utilize DTOs, pagination, and HATEOAS.
+- `src/main/java/com/kelsonthony/hexagonalarchitecture/hexagonalarchitectureexample/application/service`: Updated service implementations to use ModelMapper for object mapping.
+
+## Running the Enhanced Application
+
+The steps to run the application remain the same. Ensure Java and Maven are installed, clone the repository, navigate to the project directory, and execute:
+
+```bash
+mvn spring-boot:run
 ## Project Structure
 
 - `src/main/java/com/kelsonthony/hexagonalarchitecture/hexagonalarchitectureexample/domain`: Contains the core business logic and models.
