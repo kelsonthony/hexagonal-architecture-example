@@ -5,6 +5,9 @@ import com.kelsonthony.hexagonalarchitecture.hexagonalarchitectureexample.domain
 import com.kelsonthony.hexagonalarchitecture.hexagonalarchitectureexample.domain.port.in.UserService;
 import com.kelsonthony.hexagonalarchitecture.hexagonalarchitectureexample.domain.port.out.UserRepository;
 import com.kelsonthony.hexagonalarchitecture.hexagonalarchitectureexample.dtos.UserDto;
+import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,8 +16,11 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    private final ModelMapper modelMapper;
+
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
         this.userRepository = userRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -31,5 +37,12 @@ public class UserServiceImpl implements UserService {
         }
 
         return userRepository.save(user);
+    }
+
+    @Override
+    public Page<UserDto> findAll(Pageable pageable) {
+
+        Page<User> users = userRepository.findAll(pageable);
+        return users.map(user -> modelMapper.map(user, UserDto.class));
     }
 }
